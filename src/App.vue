@@ -25,11 +25,19 @@
   };
   // carusal autoplay function
   const autoplay = () => {
-      interval = setInterval(() => {
-        next();
-      }, 3000); // Adjust the interval (in milliseconds) as needed
-    };
-  // autoplay mounded function
+    interval = setInterval(() => {
+      next();
+    }, 3000); // Adjust the interval (in milliseconds) as needed
+  };
+    // when mouse hover on image stop autoplay
+  const stopAutoplay = () => {
+    clearInterval(interval);
+  };
+  // when mouse leave on image stop autoplay
+  const startAutoplay = () => {
+    autoplay();
+  };
+    // autoplay mounded function
   onMounted(() => {
     autoplay();
   });
@@ -40,7 +48,7 @@
 
 </script>
 <template>
-  <div class="relative">
+  <div class="relative" @mouseenter="stopAutoplay" @mouseleave="startAutoplay">
     <div v-for="(image, index) in images" :class="`carousel-item ${index === currentIndex ? 'active' : ''}`">
       <img :src="image" alt="Carousel Image" class="w-full h-auto rounded-lg shadow">
     </div>
